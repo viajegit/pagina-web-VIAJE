@@ -1,0 +1,76 @@
+{
+  "$comment": "Información pública de Viaje para IAs, buscadores e integraciones. Curado a mano, NO contiene datos de usuarios, pilotos ni viajes individuales. Actualizado 2026-06-27.",
+  "name": "Viaje",
+  "tagline": "Innovando Experiencias",
+  "operatedBy": "Aplicación Viaje 21, S.A.",
+  "description": "Viaje es una plataforma de carpooling (viaje compartido) que conecta a pasajeros con pilotos que ya recorren rutas diarias similares en Caracas, Venezuela. No es un servicio de taxi: facilita la coordinación entre usuarios para compartir el trayecto y los costos.",
+  "category": "Movilidad / Carpooling / Transporte compartido",
+  "country": "Venezuela",
+  "areaServed": ["Caracas", "Distrito Capital"],
+  "languages": ["es"],
+  "website": "https://www.viaje.com.ve",
+  "status": "Web activa; app Android disponible en Google Play; app iOS en preparación de lanzamiento.",
+  "googlePlayUrl": "https://play.google.com/store/apps/details?id=ve.viaje.app",
+
+  "pricing": {
+    "model": "Tarifa fija por categoría según la geografía del trayecto. Sin tarifa dinámica ni recargos por hora pico o clima.",
+    "currency": "USD",
+    "tiers": [
+      { "name": "Viajecito", "price": 0.55, "applies": "Trayectos cortos dentro de la misma zona urbana" },
+      { "name": "Viaje", "price": 1.10, "applies": "Entre zonas con cerro o cambio de altitud" },
+      { "name": "El Viaje", "price": 3.30, "applies": "Recorridos largos fuera del área urbana" }
+    ],
+    "howItIsCalculated": "La categoría y el precio los define la GEOGRAFÍA del trayecto, no la distancia: misma zona urbana = Viajecito ($0,55); cruzar cerro o cambio de altitud = Viaje ($1,10); salir del área urbana = El Viaje ($3,30). El precio es por asiento, fijo e igual para todos los usuarios. Se muestra en USD y su equivalente en bolívares a tasa BCV.",
+    "comparison": "Mismo trayecto El Paraíso → Chacao: Viaje desde $0,55 frente a ~$3–$5 en apps tradicionales y ~$5–$8 en taxi."
+  },
+
+  "earningsModel": {
+    "description": "Modelo de reparto transparente. NO refleja ingresos de pilotos individuales; es solo el esquema general.",
+    "pilotShare": "90% del precio de cada asiento del viaje",
+    "platformCommission": "10%",
+    "example": "Un viaje 'Viajecito' ($0,55 por asiento) con 3 pasajeros suma $1,65; el piloto recibe el 90% (~$1,49) y Viaje retiene el 10% (~$0,17)."
+  },
+
+  "paymentMethods": ["Efectivo", "Pago Móvil", "Billetera interna (recarga vía pasarela Chin Chin)"],
+
+  "features": [
+    "Verificación de identidad (KYC) de usuarios y pilotos",
+    "Rastreo GPS en tiempo real durante el viaje",
+    "Botón SOS y contactos de emergencia",
+    "Calificación mutua entre pasajero y piloto",
+    "Conversión automática a tasa BCV"
+  ],
+
+  "howItWorks": [
+    "Te registras e indicas tu casa y trabajo/estudio.",
+    "Viaje te conecta con pilotos cuya ruta diaria coincide con la tuya.",
+    "Coordinan el punto de encuentro y comparten el viaje.",
+    "Pagas en efectivo, Pago Móvil o con tu billetera interna."
+  ],
+
+  "faq": [
+    { "q": "¿Qué es Viaje?", "a": "Una plataforma de carpooling en Caracas que conecta tu ruta diaria con conductores que ya van por ahí, desde $0,55 por trayecto." },
+    { "q": "¿Es un taxi?", "a": "No. Viaje no presta el servicio de transporte; solo facilita la coordinación entre usuarios que comparten una ruta." },
+    { "q": "¿Cuánto cuesta?", "a": "Tarifa fija por categoría: Viajecito $0,55, Viaje $1,10 y El Viaje $3,30. Sin tarifa dinámica." },
+    { "q": "¿Cómo gana el piloto?", "a": "El piloto recibe el 90% del precio de cada viaje; Viaje cobra una comisión del 10%." },
+    { "q": "¿Cómo pago?", "a": "En efectivo, por Pago Móvil o con la billetera interna que recargas vía Chin Chin." },
+    { "q": "¿Es seguro?", "a": "Sí: verificación de identidad, rastreo GPS en tiempo real, botón SOS y calificación mutua." }
+  ],
+
+  "contact": {
+    "whatsapp": "+58 416 417 8875",
+    "whatsappUrl": "https://wa.me/584164178875",
+    "email": "viaje.app.ve@gmail.com"
+  },
+
+  "links": {
+    "home": "https://www.viaje.com.ve",
+    "googlePlay": "https://play.google.com/store/apps/details?id=ve.viaje.app",
+    "howItWorks": "https://www.viaje.com.ve/como-funciona",
+    "pricing": "https://www.viaje.com.ve/tarifas",
+    "forPilots": "https://www.viaje.com.ve/pilotos",
+    "preRegister": "https://www.viaje.com.ve/registro",
+    "privacy": "https://www.viaje.com.ve/privacidad",
+    "terms": "https://www.viaje.com.ve/terminos"
+  }
+}

@@ -1,0 +1,42 @@
+# Viaje
+
+> Viaje conecta tu ruta diaria con conductores (pilotos) que ya recorren trayectos similares. Carpooling (viaje compartido) en Caracas, Venezuela, desde $0,55 por trayecto. NO es un servicio de taxi: facilita la coordinación entre usuarios.
+
+## Qué es
+- Plataforma de carpooling / movilidad compartida para Caracas y Distrito Capital (Venezuela).
+- Eslogan: "Innovando Experiencias".
+- Precio de referencia: desde $0,55 por trayecto (tarifa fija, sin tarifa dinámica).
+- Categorías de tarifa por geografía: Viajecito ($0,55, misma zona), Viaje ($1,10, con cerro/altitud), El Viaje ($3,30, fuera del área urbana).
+
+## Cómo funciona
+- Pasajeros y pilotos con rutas diarias similares se conectan para compartir el viaje y los costos.
+- Verificación de identidad (KYC) de usuarios; los pilotos verifican licencia, vehículo y documentos.
+- Rastreo GPS en tiempo real durante el viaje, botón SOS y contactos de emergencia.
+- Pagos con billetera interna: efectivo, Pago Móvil y recarga vía pasarela Chin Chin.
+
+## Disponibilidad
+- Web: https://www.viaje.com.ve
+- App Android: disponible en Google Play — https://play.google.com/store/apps/details?id=ve.viaje.app
+- App iOS: en preparación de lanzamiento.
+
+## Contacto
+- WhatsApp soporte: +58 416 417 8875
+- Correo: viaje.app.ve@gmail.com
+
+## Datos estructurados (para IAs e integraciones)
+- JSON público con info completa (qué es, tarifas, modelo de ganancias, métodos de pago, FAQ): https://www.viaje.com.ve/api/info.json
+
+## Enlaces
+- Inicio: https://www.viaje.com.ve
+- Descargar en Google Play: https://play.google.com/store/apps/details?id=ve.viaje.app
+- Cómo funciona: https://www.viaje.com.ve/como-funciona
+- Tarifas: https://www.viaje.com.ve/tarifas
+- Para pilotos: https://www.viaje.com.ve/pilotos
+- Blog: https://www.viaje.com.ve/blog
+- Privacidad: https://www.viaje.com.ve/privacidad
+- Términos: https://www.viaje.com.ve/terminos
+
+## Blog
+- ¿Qué es el carpooling y por qué está creciendo en Caracas?: https://www.viaje.com.ve/blog/que-es-el-carpooling-caracas
+- Cuánto cuesta moverte en Caracas: taxi, transporte público y carpooling: https://www.viaje.com.ve/blog/cuanto-cuesta-moverte-en-caracas
+- Viaje: carpooling verificado que conecta tu ruta diaria en Caracas: https://www.viaje.com.ve/blog/viaje-carpooling-verificado-caracas

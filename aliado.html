@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portal de Aliados · Viaje</title>
+  <meta name="robots" content="noindex" />
+  <link rel="canonical" href="https://www.viaje.com.ve/aliado" />
+  <style>
+    :root { --azul:#096BE2; --azul-osc:#0B5FD6; --gris:#768589; --tinta:#0F172A; --linea:#E2E8F0; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:#EEF2F6; color:var(--tinta);
+      font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif; line-height:1.5; min-height:100vh; }
+    .wrap { max-width:480px; margin:0 auto; padding:24px 16px 48px; }
+    .card { background:#fff; border-radius:16px; padding:24px; box-shadow:0 8px 30px rgba(9,107,226,.08); margin-top:16px; }
+    .logo { text-align:center; padding:8px 0 4px; }
+    .logo img { width:100px; height:auto; }
+    h1 { font-size:22px; margin:0 0 6px; }
+    h2 { font-size:16px; margin:0 0 12px; color:var(--azul-osc); }
+    p { color:#334155; font-size:14px; margin:0 0 12px; }
+    input[type=text], input[type=tel] {
+      width:100%; padding:14px; font-size:20px; border:1.5px solid var(--linea); border-radius:10px;
+      text-align:center; letter-spacing:2px; font-weight:700; margin-bottom:12px;
+    }
+    .btn {
+      display:block; width:100%; background:var(--azul); color:#fff; text-decoration:none;
+      font-weight:700; padding:14px; border-radius:999px; border:none; font-size:15px; cursor:pointer; text-align:center;
+    }
+    .btn:disabled { opacity:.5; cursor:default; }
+    .btn.secondary { background:#F1F5F9; color:var(--tinta); margin-top:8px; }
+    .btn.ghost { background:transparent; color:var(--gris); font-weight:600; font-size:13px; padding:8px; }
+    .muted { color:var(--gris); font-size:13px; }
+    .err { background:#F2F4F5; border:1px solid #E2E8F0; color:var(--gris); border-radius:10px; padding:10px 14px; font-size:13px; margin-bottom:12px; }
+    .ok { background:#EFF6FF; border:1px solid #C7DDFB; color:var(--azul-osc); border-radius:10px; padding:14px; font-size:14px; margin-bottom:12px; text-align:center; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; }
+    .topbar b { font-size:14px; }
+    #video { width:100%; border-radius:12px; background:#000; display:block; }
+    .scan-wrap { position:relative; margin-bottom:12px; }
+    .product { border:1.5px solid var(--linea); border-radius:12px; padding:14px; margin-bottom:10px; cursor:pointer; }
+    .product.disabled { opacity:.45; cursor:default; }
+    .product b { display:block; font-size:15px; margin-bottom:2px; }
+    .product .pct { color:var(--azul); font-weight:800; }
+    .pilot-name { font-size:18px; font-weight:800; margin-bottom:4px; }
+    .tier-badge { display:inline-block; padding:3px 10px; border-radius:999px; font-size:11px; font-weight:800; text-transform:uppercase; margin-bottom:14px; }
+    .tier-activo { background:#EFF6FF; color:#096BE2; }
+    .tier-top { background:#DBEAFE; color:#0B5FD6; }
+    .hidden { display:none !important; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="logo"><img src="/email-logo-azul.png" alt="Viaje" /></div>
+
+    <!-- Pantalla de login por PIN -->
+    <div class="card" id="screen-login">
+      <h1>Portal de Aliados</h1>
+      <p>Ingresa el PIN de 6 dígitos que te dio el equipo de Viaje.</p>
+      <div id="login-err" class="err hidden"></div>
+      <input type="tel" id="pin-input" maxlength="6" inputmode="numeric" placeholder="••••••" autocomplete="off" />
+      <button class="btn" id="login-btn">Entrar</button>
+    </div>
+
+    <!-- Pantalla principal: escanear/ingresar código -->
+    <div class="card hidden" id="screen-scan">
+      <div class="topbar">
+        <b id="partner-name"></b>
+        <button class="btn ghost" id="logout-btn">Salir</button>
+      </div>
+      <p class="muted">Escanea el código QR que te muestra el piloto, o escríbelo abajo.</p>
+      <div id="scan-err" class="err hidden"></div>
+
+      <div class="scan-wrap hidden" id="scan-wrap">
+        <video id="video" playsinline muted></video>
+      </div>
+      <canvas id="canvas" class="hidden"></canvas>
+      <button class="btn secondary" id="camera-btn">📷 Escanear QR</button>
+
+      <div style="margin-top:16px;">
+        <input type="text" id="code-input" maxlength="6" placeholder="CÓDIGO" autocomplete="off" />
+        <button class="btn" id="lookup-btn">Buscar código</button>
+      </div>
+    </div>
+
+    <!-- Pantalla de resultado: elegir producto -->
+    <div class="card hidden" id="screen-products">
+      <button class="btn ghost" id="back-btn">← Volver</button>
+      <div class="pilot-name" id="pilot-name"></div>
+      <span class="tier-badge" id="tier-badge"></span>
+      <div id="products-list"></div>
+    </div>
+
+    <!-- Pantalla de éxito -->
+    <div class="card hidden" id="screen-success">
+      <div class="ok" id="success-msg"></div>
+      <button class="btn" id="new-scan-btn">Escanear otro código</button>
+    </div>
+
+    <p class="muted" style="text-align:center; margin-top:20px;">Viaje · Programa de aliados</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+  <script>
+    const FN_URL = 'https://zkdsfakqqniydvxkxkit.supabase.co/functions/v1/partner-portal';
+    const LS_KEY = 'viaje_aliado_token';
+
+    const $ = (id) => document.getElementById(id);
+    const screens = ['screen-login', 'screen-scan', 'screen-products', 'screen-success'];
+    function show(id) { screens.forEach((s) => $(s).classList.toggle('hidden', s !== id)); }
+
+    let token = localStorage.getItem(LS_KEY);
+    let currentCode = null;
+    let stream = null;
+    let scanning = false;
+
+    async function call(body) {
+      const res = await fetch(FN_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      return res.json();
+    }
+
+    async function tryRestoreSession() {
+      if (!token) { show('screen-login'); return; }
+      const r = await call({ action: 'session', token });
+      if (r.ok) {
+        $('partner-name').textContent = r.partner.name;
+        show('screen-scan');
+      } else {
+        localStorage.removeItem(LS_KEY);
+        token = null;
+        show('screen-login');
+      }
+    }
+
+    $('login-btn').onclick = async () => {
+      const pin = $('pin-input').value.trim();
+      $('login-err').classList.add('hidden');
+      if (!/^\d{6}$/.test(pin)) { $('login-err').textContent = 'Escribe los 6 dígitos del PIN'; $('login-err').classList.remove('hidden'); return; }
+      $('login-btn').disabled = true;
+      const r = await call({ action: 'login', pin });
+      $('login-btn').disabled = false;
+      if (!r.ok) { $('login-err').textContent = r.error || 'PIN incorrecto'; $('login-err').classList.remove('hidden'); return; }
+      token = r.token;
+      localStorage.setItem(LS_KEY, token);
+      $('partner-name').textContent = r.partner.name;
+      show('screen-scan');
+    };
+    $('pin-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('login-btn').click(); });
+
+    $('logout-btn').onclick = () => {
+      localStorage.removeItem(LS_KEY);
+      token = null;
+      stopCamera();
+      show('screen-login');
+    };
+
+    async function doLookup(code) {
+      $('scan-err').classList.add('hidden');
+      const r = await call({ action: 'lookup', token, code });
+      if (!r.ok) {
+        if (r.error && r.error.includes('Sesión')) { localStorage.removeItem(LS_KEY); token = null; show('screen-login'); return; }
+        $('scan-err').textContent = r.error || 'Código inválido';
+        $('scan-err').classList.remove('hidden');
+        return;
+      }
+      currentCode = code;
+      $('pilot-name').textContent = `${r.pilot.first_name} ${r.pilot.last_name}`.trim();
+      const badge = $('tier-badge');
+      badge.textContent = r.tier === 'top' ? 'Piloto Top' : 'Piloto Activo';
+      badge.className = 'tier-badge ' + (r.tier === 'top' ? 'tier-top' : 'tier-activo');
+
+      const list = $('products-list');
+      list.innerHTML = '';
+      if (r.products.length === 0) {
+        list.innerHTML = '<p class="muted">No tienes productos activos configurados todavía.</p>';
+      }
+      r.products.forEach((p) => {
+        const div = document.createElement('div');
+        div.className = 'product' + (p.already_redeemed ? ' disabled' : '');
+        div.innerHTML = `<b>${p.name}</b><span class="pct">${p.discount_percent}% off</span>${p.description ? `<div class="muted">${p.description}</div>` : ''}${p.already_redeemed ? '<div class="muted">Ya usado este mes</div>' : ''}`;
+        if (!p.already_redeemed) div.onclick = () => doRedeem(p.id, p.name);
+        list.appendChild(div);
+      });
+      show('screen-products');
+    }
+
+    async function doRedeem(productId, productName) {
+      const r = await call({ action: 'redeem', token, code: currentCode, product_id: productId });
+      if (!r.ok) { alert(r.error || 'No se pudo aplicar el descuento'); return; }
+      $('success-msg').textContent = `✅ ${r.discount_percent}% aplicado a ${r.pilot_name} — ${r.product_name}`;
+      show('screen-success');
+    }
+
+    $('lookup-btn').onclick = () => {
+      const code = $('code-input').value.trim().toUpperCase();
+      if (code.length !== 6) { $('scan-err').textContent = 'El código tiene 6 caracteres'; $('scan-err').classList.remove('hidden'); return; }
+      stopCamera();
+      doLookup(code);
+    };
+    $('code-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('lookup-btn').click(); });
+
+    $('back-btn').onclick = () => show('screen-scan');
+    $('new-scan-btn').onclick = () => { $('code-input').value = ''; show('screen-scan'); };
+
+    // ── Escaneo de QR por cámara ──────────────────────────────────────────
+    $('camera-btn').onclick = async () => {
+      if (stream) { stopCamera(); return; }
+      $('scan-err').classList.add('hidden');
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        $('scan-err').textContent = 'Este navegador no permite usar la cámara aquí (pasa seguido si abriste el link desde WhatsApp/Instagram). Ábrelo directo en Chrome o Safari, o escribe el código manualmente.';
+        $('scan-err').classList.remove('hidden');
+        return;
+      }
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+      } catch (e) {
+        const reason = e && e.name === 'NotAllowedError' ? 'Bloqueaste el permiso de cámara para este sitio -- actívalo en los ajustes del navegador.'
+          : e && e.name === 'NotFoundError' ? 'No se encontró ninguna cámara en este dispositivo.'
+          : `No se pudo acceder a la cámara (${e && e.name ? e.name : 'error desconocido'}).`;
+        $('scan-err').textContent = reason + ' Mientras tanto, escribe el código manualmente.';
+        $('scan-err').classList.remove('hidden');
+        return;
+      }
+      $('scan-wrap').classList.remove('hidden');
+      $('camera-btn').textContent = '✕ Cancelar escaneo';
+      const video = $('video');
+      video.srcObject = stream;
+      video.play();
+      scanning = true;
+      requestAnimationFrame(scanFrame);
+    };
+
+    function stopCamera() {
+      scanning = false;
+      if (stream) { stream.getTracks().forEach((t) => t.stop()); stream = null; }
+      $('scan-wrap').classList.add('hidden');
+      $('camera-btn').textContent = '📷 Escanear QR';
+    }
+
+    function scanFrame() {
+      if (!scanning) return;
+      const video = $('video');
+      const canvas = $('canvas');
+      if (video.readyState === video.HAVE_ENOUGH_DATA) {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const result = jsQR(imageData.data, imageData.width, imageData.height);
+        if (result && result.data) {
+          const code = result.data.trim().toUpperCase();
+          if (/^[A-Z0-9]{6}$/.test(code)) {
+            stopCamera();
+            doLookup(code);
+            return;
+          }
+        }
+      }
+      requestAnimationFrame(scanFrame);
+    }
+
+    tryRestoreSession();
+  </script>
+</body>
+</html>

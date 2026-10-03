@@ -1,0 +1,56 @@
+{
+  "buildCommand": "npm install --no-package-lock --legacy-peer-deps && npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "echo skip",
+  "framework": null,
+  "routes": [
+    {
+      "src": "/(.*)",
+      "headers": {
+        "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
+        "X-Content-Type-Options": "nosniff",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Permissions-Policy": "geolocation=(), microphone=(), camera=(), payment=()"
+      },
+      "continue": true
+    },
+    {
+      "src": "/assets/(.*)",
+      "headers": { "Cache-Control": "public, max-age=3600, must-revalidate" },
+      "continue": true
+    },
+    {
+      "src": "/viaje-logo\\.svg",
+      "headers": { "Cache-Control": "public, max-age=3600, must-revalidate" },
+      "continue": true
+    },
+    {
+      "src": "^/(?!metrics)(.*)/$",
+      "status": 308,
+      "headers": { "Location": "/$1" }
+    },
+    { "handle": "filesystem" },
+    { "src": "/registro", "dest": "/registro.html" },
+    { "src": "/registro-piloto", "dest": "/registro-piloto.html" },
+    { "src": "/pilotos", "dest": "/pilotos.html" },
+    { "src": "/nosotros", "dest": "/nosotros.html" },
+    { "src": "/como-funciona", "dest": "/como-funciona.html" },
+    { "src": "/tarifas", "dest": "/tarifas.html" },
+    { "src": "/contacto", "dest": "/contacto.html" },
+    { "src": "/descarga", "dest": "/descarga.html" },
+    { "src": "/privacidad", "dest": "/privacidad.html" },
+    { "src": "/terminos", "dest": "/terminos.html" },
+    { "src": "/eliminar-cuenta", "dest": "/eliminar-cuenta.html" },
+    { "src": "/soporte", "dest": "/soporte.html" },
+    { "src": "/aliado", "dest": "/aliado.html" },
+    { "src": "/demo-pilotos", "dest": "/demo-pilotos.html" },
+    { "src": "/blog", "dest": "/blog.html" },
+    { "src": "/blog/que-es-el-carpooling-caracas", "dest": "/blog/que-es-el-carpooling-caracas.html" },
+    { "src": "/blog/cuanto-cuesta-moverte-en-caracas", "dest": "/blog/cuanto-cuesta-moverte-en-caracas.html" },
+    { "src": "/blog/viaje-carpooling-verificado-caracas", "dest": "/blog/viaje-carpooling-verificado-caracas.html" },
+    { "src": "/blog/taxi-ridery-o-viaje-caracas", "dest": "/blog/taxi-ridery-o-viaje-caracas.html" },
+    { "src": "/blog/carpooling-caracas-venezuela", "dest": "/blog/carpooling-caracas-venezuela.html" },
+    { "src": "/blog/(.*)", "dest": "/index.html" },
+    { "src": "/track/(.*)", "dest": "/index.html" }
+  ]
+}

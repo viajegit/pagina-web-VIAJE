@@ -1,0 +1,11 @@
+Model Information:
+* title:	Edificio de noche caricaturesco [Gratuito]
+* source:	https://sketchfab.com/3d-models/edificio-de-noche-caricaturesco-gratuito-1331c5c2c2e84231a0c52becee69609d
+* author:	Jonathan (https://sketchfab.com/JonyDev124)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Edificio de noche caricaturesco [Gratuito]" (https://sketchfab.com/3d-models/edificio-de-noche-caricaturesco-gratuito-1331c5c2c2e84231a0c52becee69609d) by Jonathan (https://sketchfab.com/JonyDev124) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
