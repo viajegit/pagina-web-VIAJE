@@ -32,7 +32,7 @@ function HeroSection() {
             </Reveal>
             <Reveal>
               <h1 className="h1" style={{ marginTop: 24, marginBottom: 24 }}>
-                Tu ruta diariasssddas,<br />
+                Tu ruta diariasssddsdas,<br />
                 <span style={{ display: "inline-flex", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
                   ahora <em style={{ fontStyle: "italic", color: "var(--primary)", position: "relative" }}>compartida<RouteUnderline /></em>.
                 </span>
