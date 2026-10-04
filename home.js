@@ -75,7 +75,7 @@ function HeroSection() {
             React.createElement(
               "h1",
               { className: "h1", style: { marginTop: 24, marginBottom: 24 } },
-              "Tu ruta DIARIASS,",
+              "Tu ruta DIARIASS1,",
               React.createElement("br", null),
               React.createElement(
                 "span",
