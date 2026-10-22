@@ -7,7 +7,7 @@
 
 const WEB_CHAT_URL = "https://zkdsfakqqniydvxkxkit.supabase.co/functions/v1/web-chat";
 const VI_EXPR = {
-  saludo: "/vi/Vi-saludo.png", pensando: "/vi/Vi-pensando.png", sorprendida: "/vi/Vi-sorprendida.png",
+  saludo: "./vi/Vi-saludo.png", pensando: "/vi/Vi-pensando.png", sorprendida: "/vi/Vi-sorprendida.png",
   aprobando: "/vi/Vi-aprobando.png", tranquila: "/vi/Vi-tranquila.png", riendo: "/vi/Vi-riendo.png",
   guino: "/vi/Vi-guino.png", disculpa: "/vi/Vi-disculpa.png",
 };
